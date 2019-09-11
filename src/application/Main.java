@@ -16,7 +16,7 @@ public class Main extends Application {
 			Parent parent = loader.load();
 			Scene mainScene = new Scene(parent);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("BKB-controle-tela principal");
+			primaryStage.setTitle("BKB-controle");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
