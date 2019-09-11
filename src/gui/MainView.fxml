@@ -19,51 +19,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="329.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="329.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Cadastrar">
           <items>
-            <MenuItem mnemonicParsing="false" text="Nova recarga" />
+            <MenuItem fx:id="menuItemCadastrarNovaRecarga" mnemonicParsing="false" onAction="#onMenuItemCadastrarNovaRecargaAction" text="Nova recarga" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Logradouro" />
+            <MenuItem fx:id="menuItemCadastrarCliente" mnemonicParsing="false" onAction="#onMenuItemCadastrarClienteAction" text="Cliente" />
+                  <MenuItem fx:id="menuItemCadastrarLogradouro" mnemonicParsing="false" onAction="#onMenuItemCadastrarLogradouroAction" text="Logradouro" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Marca" />
-            <MenuItem mnemonicParsing="false" text="Modelo" />
-            <MenuItem mnemonicParsing="false" text="Cor" />
-            <MenuItem mnemonicParsing="false" text="tipo" />
-                  <MenuItem mnemonicParsing="false" text="Status" />
+            <MenuItem fx:id="menuItemCadastrarMarca" mnemonicParsing="false" onAction="#onMenuItemCadastrarMarcaAction" text="Marca" />
+            <MenuItem fx:id="menuItemCadastrarModelo" mnemonicParsing="false" onAction="#onMenuItemCadastrarModeloAction" text="Modelo" />
+            <MenuItem fx:id="menuItemCadastrarCor" mnemonicParsing="false" onAction="#onMenuItemCadastrarCorAction" text="Cor" />
+            <MenuItem fx:id="menuItemCadastrarTipo" mnemonicParsing="false" onAction="#onMenuItemCadastrarTipoAction" text="tipo" />
+                  <MenuItem fx:id="menuItemCadastrarStatus" mnemonicParsing="false" onAction="#onMenuItemCadastrarStatusAction" text="Status" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Editar">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Cartucho" />
-                  <MenuItem mnemonicParsing="false" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Logradouro" />
-                  <MenuItem mnemonicParsing="false" text="Marca" />
-                  <MenuItem mnemonicParsing="false" text="Modelo" />
-                  <MenuItem mnemonicParsing="false" text="Cor" />
-                  <MenuItem mnemonicParsing="false" text="tipo" />
-                  <MenuItem mnemonicParsing="false" text="Status" />
+                  <MenuItem fx:id="menuItemEditarRecarga" mnemonicParsing="false" onAction="#onMenuItemEditarRecargaAction" text="Recarga" />
+                  <MenuItem fx:id="menuItemEditarCliente" mnemonicParsing="false" onAction="#onMenuItemEditarClienteAction" text="Cliente" />
+                  <MenuItem fx:id="menuItemEditarLogradouro" mnemonicParsing="false" onAction="#onMenuItemEditarLogradouroAction" text="Logradouro" />
+                  <MenuItem fx:id="menuItemEditarMarca" mnemonicParsing="false" onAction="#onMenuItemEditarMarcaAction" text="Marca" />
+                  <MenuItem fx:id="menuItemEditarModelo" mnemonicParsing="false" onAction="#onMenuItemEditarModeloAction" text="Modelo" />
+                  <MenuItem fx:id="menuItemEditarCor" mnemonicParsing="false" onAction="#onMenuItemEditarCorAction" text="Cor" />
+                  <MenuItem fx:id="menuItemEditarTipo" mnemonicParsing="false" onAction="#onMenuItemEditarTipoAction" text="tipo" />
+                  <MenuItem fx:id="menuItemEditarStatus" mnemonicParsing="false" onAction="#onMenuItemEditarStatusAction" text="Status" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Pesquisar">
               <items>
-                <MenuItem mnemonicParsing="false" text="Recarga" />
-                  <MenuItem mnemonicParsing="false" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Cartucho/código" />
+                <MenuItem fx:id="menuItemPesquisarRecarga" mnemonicParsing="false" onAction="#onMenuItemPesquisarRecargaAction" text="Recarga" />
+                  <MenuItem fx:id="menuItemPesquisarCliente" mnemonicParsing="false" onAction="#onMenuItemPesquisarClienteAction" text="Cliente" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Relatório">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="menuItemRelatorioRecargaDia" mnemonicParsing="false" onAction="#onMenuItemRelatorioRecargaDiaAction" text="Recarga/Dia" />
+                  <MenuItem fx:id="menuItemRelatorioRecargaMes" mnemonicParsing="false" onAction="#onMenuItemRelatorioRecargaMesAction" text="Recarga/Mês" />
+                  <MenuItem fx:id="menuItemRelatorioRecargaAno" mnemonicParsing="false" onAction="#onMenuItemRelatorioRecargaAnoAction" text="Recarga/Ano" />
+                  <MenuItem fx:id="menuItemRelatorioRecargaPeriodo" mnemonicParsing="false" onAction="#onMenuItemRelatorioRecargaPeriodoAction" text="Recarga/Periodo" />
               </items>
             </Menu>
         <Menu mnemonicParsing="false" text="Ajuda">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem fx:id="menuItemAjudaCadastrar" mnemonicParsing="false" onAction="#onMenuItemAjudaCadastrarAction" text="Sobre Cadastrar" />
+                  <MenuItem fx:id="menuItemAjudaEditar" mnemonicParsing="false" onAction="#onMenuItemAjudaEditarAction" text="Sobre Editar" />
+                  <MenuItem fx:id="menuItemAjudaPesquisar" mnemonicParsing="false" onAction="#onMenuItemAjudaPesquisarAction" text="Sobre Pesquisar" />
+                  <MenuItem fx:id="menuItemAjudaRelatorio" mnemonicParsing="false" onAction="#onMenuItemAjudaRelatorioAction" text="Sobre Relatório" />
           </items>
         </Menu>
       </menus>
@@ -101,11 +106,11 @@
                      </GridPane.margin></TextField>
                   <HBox prefHeight="0.0" prefWidth="179.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button lineSpacing="10.0" mnemonicParsing="false" text="Pesquisar">
+                        <Button fx:id="btnPesquisar" lineSpacing="10.0" mnemonicParsing="false" onAction="#onBtnPesquisarAction" text="Pesquisar">
                            <HBox.margin>
                               <Insets top="15.0" />
                            </HBox.margin></Button>
-                        <Button mnemonicParsing="false" text="Limpar ">
+                        <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#onBtnLimparAction" text="Limpar ">
                            <HBox.margin>
                               <Insets top="15.0" />
                            </HBox.margin></Button>
@@ -119,9 +124,20 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <VBox layoutX="397.0" layoutY="118.0" prefHeight="103.0" prefWidth="188.0">
+            <VBox layoutX="400.0" layoutY="22.0" prefHeight="103.0" prefWidth="188.0">
                <children>
-                  <Button defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" text="Nova Recarga" textFill="#035b16">
+                  <TextField alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" promptText="informe o código do cartucho">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <Button fx:id="btnNovaRecarga" defaultButton="true" mnemonicParsing="false" onAction="#onBtnNovaRecargaAvtion" prefHeight="43.0" prefWidth="193.0" text="Nova Recarga" textFill="#035b16">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
