@@ -3,6 +3,7 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,7 +12,7 @@ import javafx.scene.control.MenuItem;
 public class MainViewController implements Initializable {
 
 	@FXML
-	private MenuItem menuItemCadastrarNovaRecarga;
+	private MenuItem menuItemCadastrarNovaRecarga;/* INCLUIR NO BANCO HORA DA ENTREGA */
 
 	@FXML
 	private MenuItem menuItemCadastrarCliente;
@@ -87,16 +88,16 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private MenuItem menuItemAjudaRelatorio;
-	
+
 	@FXML
 	private Button btnNovaRecarga;
-	
+
 	@FXML
 	private Button btnPesquisar;
-	
+
 	@FXML
 	private Button btnLimpar;
-	
+
 	/*---------------------------------------------------------------------------*/
 
 	@FXML
@@ -142,6 +143,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemEditarRecargaAction() {
 		System.out.println("menu Item Editar Recarga Action");
+
 	}
 
 	@FXML
@@ -210,45 +212,28 @@ public class MainViewController implements Initializable {
 	}
 
 	@FXML
-	public void onMenuItemAjudaCadastrarAction() {
+	public void onMenuItemAjudaCadastrarAction(ActionEvent event) {
 		System.out.println("menu Item Ajuda Cadastrar Action");
 	}
 
 	@FXML
-	public void onMenuItemAjudaEditarAction() {
+	public void onMenuItemAjudaEditarAction(ActionEvent event) {
 		System.out.println("menu Item Ajuda Editar Action");
 	}
 
 	@FXML
-	public void onMenuItemAjudaPesquisarAction() {
+	public void onMenuItemAjudaPesquisarAction(ActionEvent event) {
 		System.out.println("menu Item Ajuda Pesquisar Action");
 	}
 
 	@FXML
-	public void onMenuItemAjudaRelatorioAction() {
+	public void onMenuItemAjudaRelatorioAction(ActionEvent event) {
 		System.out.println("menu Item Ajuda Relatório Action");
 	}
-	
-	@FXML
-	public void onBtnNovaRecargaAvtion() {
-		System.out.println("Botão Nova Recarga Action");
-	}
-	
-	@FXML
-	public void onBtnPesquisarAction() {
-		System.out.println("Botão Pesquisar Action");
-	}
-	
-	@FXML
-	public void onBtnLimparAction() {
-		System.out.println("Botão Limpar Action");
-	}
-	
-/*-----------------------------------------------------------------------------------*/
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
-		
+
 	}
 
 }
