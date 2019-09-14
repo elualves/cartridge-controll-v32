@@ -23,7 +23,7 @@
                         <MenuItem fx:id="menuItemCadastrarMarca" mnemonicParsing="false" onAction="#onMenuItemCadastrarMarcaAction" text="Marca" />
                         <MenuItem fx:id="menuItemCadastrarModelo" mnemonicParsing="false" onAction="#onMenuItemCadastrarModeloAction" text="Modelo" />
                         <MenuItem fx:id="menuItemCadastrarCor" mnemonicParsing="false" onAction="#onMenuItemCadastrarCorAction" text="Cor" />
-                        <MenuItem fx:id="menuItemCadastrarTipo" mnemonicParsing="false" onAction="#onMenuItemCadastrarTipoAction" text="tipo" />
+                        <MenuItem fx:id="menuItemCadastrarTipo" mnemonicParsing="false" onAction="#onMenuItemCadastrarTipoAction" text="Tipo" />
                         <MenuItem fx:id="menuItemCadastrarStatus" mnemonicParsing="false" onAction="#onMenuItemCadastrarStatusAction" text="Status" />
                      </items>
                   </Menu>
@@ -35,7 +35,7 @@
                         <MenuItem fx:id="menuItemEditarMarca" mnemonicParsing="false" onAction="#onMenuItemEditarMarcaAction" text="Marca" />
                         <MenuItem fx:id="menuItemEditarModelo" mnemonicParsing="false" onAction="#onMenuItemEditarModeloAction" text="Modelo" />
                         <MenuItem fx:id="menuItemEditarCor" mnemonicParsing="false" onAction="#onMenuItemEditarCorAction" text="Cor" />
-                        <MenuItem fx:id="menuItemEditarTipo" mnemonicParsing="false" onAction="#onMenuItemEditarTipoAction" text="tipo" />
+                        <MenuItem fx:id="menuItemEditarTipo" mnemonicParsing="false" onAction="#onMenuItemEditarTipoAction" text="Tipo" />
                         <MenuItem fx:id="menuItemEditarStatus" mnemonicParsing="false" onAction="#onMenuItemEditarStatusAction" text="Status" />
                      </items>
                   </Menu>
