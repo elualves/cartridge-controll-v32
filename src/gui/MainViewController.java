@@ -18,7 +18,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.CorService;
+import model.services.LogradouroService;
 import model.services.MarcaService;
+import model.services.ModeloService;
+import model.services.StatusService;
+import model.services.TipoService;
 
 public class MainViewController implements Initializable {
 
@@ -123,7 +128,10 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemCadastrarLogradouroAction() {
-		System.out.println("menu Item CadastrarLogradouro Action");
+		loadView("/gui/CadastrarLogradouro.fxml", (CadastrarLogradouroController controller) -> {
+			controller.setLogradouroService(new LogradouroService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
@@ -136,22 +144,34 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemCadastrarModeloAction() {
-		System.out.println("menu Item Cadastrar Modelo Action");
+		loadView("/gui/CadastrarModelo.fxml", (CadastrarModeloController controller) -> {
+			controller.setModeloService(new ModeloService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
 	public void onMenuItemCadastrarCorAction() {
-		System.out.println("menu Item Cadastrar Cor Action");
+		loadView("/gui/CadastrarCor.fxml", (CadastrarCorController controller) -> {
+			controller.setCorService(new CorService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
 	public void onMenuItemCadastrarTipoAction() {
-		System.out.println("menu Item Cadastrar Tipo Action");
+		loadView("/gui/CadastrarTipo.fxml", (CadastrarTipoController controller) -> {
+			controller.setTipoService(new TipoService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
 	public void onMenuItemCadastrarStatusAction() {
-		System.out.println("menuI tem Cadastrar Status Action");
+		loadView("/gui/CadastrarStatus.fxml", (CadastrarStatusController controller) -> {
+			controller.setStatusService(new StatusService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML

@@ -9,26 +9,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="250.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadastrarMarcaController">
+<VBox prefHeight="250.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadastrarTipoController">
    <children>
-      <Label text="Marcas" textFill="#03901d">
+      <Label text="Tipo" textFill="#03901d">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
-         <padding>
+         <VBox.margin>
             <Insets left="10.0" top="5.0" />
-         </padding>
+         </VBox.margin>
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btNovaMarca" mnemonicParsing="false" onAction="#onBtNovaMarcaAction" text="Nova Marca" textFill="#03901d" />
+          <Button fx:id="btNovaTipo" mnemonicParsing="false" onAction="#onBtNovaTipoAction" text="Novo Tipo" textFill="#03901d" />
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewMarca" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewTipo" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" prefWidth="43.0" text="Id" />
-          <TableColumn fx:id="tableColumnMarca" prefWidth="141.0" text="Marca" />
+          <TableColumn fx:id="tableColumnId" prefWidth="48.0" text="Id" />
+          <TableColumn fx:id="tableColumnTipo" prefWidth="102.0" text="Tipo" />
         </columns>
       </TableView>
    </children>
 </VBox>
+
