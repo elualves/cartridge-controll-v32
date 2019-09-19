@@ -1,17 +1,16 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.CorDao;
+import model.dao.DaoFactory;
 import model.entities.Cor;
 
 public class CorService {
 
-	public List<Cor> findAll() {
-		List<Cor> list = new ArrayList<>();
-		list.add(new Cor(1, "Color"));
-		list.add(new Cor(2, "BK"));
+	private CorDao dao = DaoFactory.createCorDao();
 
-		return list;
+	public List<Cor> findAll() {
+		return dao.findAll();
 	}
 }

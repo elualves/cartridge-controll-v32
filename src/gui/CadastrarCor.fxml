@@ -21,7 +21,7 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btNovaCor" mnemonicParsing="false" onAction="#onBtNovaCorAction" text="Novo Cor" textFill="#03901d" />
+          <Button fx:id="btNovaCor" mnemonicParsing="false" onAction="#onBtNovaCorAction" text="Nova Cor" textFill="#03901d" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewCor" prefHeight="200.0" prefWidth="200.0">
@@ -32,4 +32,3 @@
       </TableView>
    </children>
 </VBox>
-

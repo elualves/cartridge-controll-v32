@@ -8,6 +8,7 @@ public class Cor implements Serializable {
 
 	private Integer id;
 	private String cor;
+	
 
 	public Cor() {
 	}
@@ -60,7 +61,7 @@ public class Cor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cor [id=" + id + ", cor=" + cor + "]";
+		return "cor [id=" + id + ", cor=" + cor + "]";
 	}
 }
 

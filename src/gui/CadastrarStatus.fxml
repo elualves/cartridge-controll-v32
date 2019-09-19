@@ -11,7 +11,7 @@
 
 <VBox prefHeight="250.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadastrarStatusController">
    <children>
-      <Label text="Statuss" textFill="#03901d">
+      <Label text="Status" textFill="#03901d">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -21,7 +21,7 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btNovaStatus" mnemonicParsing="false" onAction="#onBtNovaStatusAction" text="Nova Status" textFill="#03901d" />
+          <Button fx:id="btNovaStatus" mnemonicParsing="false" onAction="#onBtNovaStatusAction" text="Novo Status" textFill="#03901d" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewStatus" prefHeight="200.0" prefWidth="200.0">

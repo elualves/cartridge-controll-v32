@@ -29,15 +29,15 @@ public class CadastrarLogradouroController implements Initializable {
 
 	@FXML
 	private TableColumn<Logradouro, String> tableColumnLogradouro;
-
+	
 	@FXML
-	private Button btNovaLogradouro;
+	private Button btNovoLogradouro;
 
 	private ObservableList<Logradouro> obsList;
-
+	
 	@FXML
-	public void onBtNovaLogradouroAction() {
-		System.out.println("bt Nova Logradouro Action");
+	public void onBtNovoLogradouroAction() {
+		System.out.println("bt Nova Cor Action");
 	}
 
 	public void setLogradouroService(LogradouroService service) {

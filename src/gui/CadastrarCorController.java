@@ -65,7 +65,6 @@ public class CadastrarCorController implements Initializable {
 		obsList = FXCollections.observableArrayList(list);
 		tableViewCor.setItems(obsList);
 	}
-
 }
 
 
