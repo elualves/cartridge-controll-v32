@@ -11,10 +11,10 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.CorDao;
-import model.entities.Cor;
+import model.dao.StatusDao;
+import model.entities.Status;
 
-public class StatusDaoJDBC implements CorDao {
+public class StatusDaoJDBC implements StatusDao {
 
 	private Connection conn;
 	
@@ -23,18 +23,18 @@ public class StatusDaoJDBC implements CorDao {
 	}
 	
 	@Override
-	public Cor findById(Integer id) {
+	public Status findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM cor WHERE IDCOR = ?");
+				"SELECT * FROM STATUS WHERE IDSTATUS = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Cor obj = new Cor();
-				obj.setId(rs.getInt("IDCOR"));
-				obj.setCor(rs.getString("NOME_DA_COR"));
+				Status obj = new Status();
+				obj.setId(rs.getInt("IDSTATUS"));
+				obj.setStatus(rs.getString("NOME_DO_STATUS"));
 				return obj;
 			}
 			return null;
@@ -49,19 +49,19 @@ public class StatusDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public List<Cor> findAll() {
+	public List<Status> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM COR ORDER BY IDCOR");
+			st = conn.prepareStatement("SELECT * FROM STATUS ORDER BY IDSTATUS");
 			rs = st.executeQuery();
 
-			List<Cor> list = new ArrayList<>();
+			List<Status> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Cor obj = new Cor();
-				obj.setId(rs.getInt("IDCOR"));
-				obj.setCor(rs.getString("NOME_DA_COR"));
+				Status obj = new Status();
+				obj.setId(rs.getInt("IDSTATUS"));
+				obj.setStatus(rs.getString("NOME_DO_STATUS"));
 				list.add(obj);
 			}
 			return list;
@@ -76,17 +76,17 @@ public class StatusDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public void insert(Cor obj) {
+	public void insert(Status obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO cor " +
+				"INSERT INTO STATUS " +
 				"(Name) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
-			st.setString(1, obj.getCor());
+			st.setString(1, obj.getStatus());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -110,15 +110,15 @@ public class StatusDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public void update(Cor obj) {
+	public void update(Status obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE cor " +
+				"UPDATE STATUS " +
 				"SET Name = ? " +
 				"WHERE Id = ?");
 
-			st.setString(1, obj.getCor());
+			st.setString(1, obj.getStatus());
 			st.setInt(2, obj.getId());
 
 			st.executeUpdate();
@@ -136,7 +136,7 @@ public class StatusDaoJDBC implements CorDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM cor WHERE Id = ?");
+				"DELETE FROM STATUS WHERE Id = ?");
 
 			st.setInt(1, id);
 

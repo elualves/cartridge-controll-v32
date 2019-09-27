@@ -1,19 +1,16 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.DaoFactory;
+import model.dao.ModeloDao;
 import model.entities.Modelo;
 
 public class ModeloService {
 
-	public List<Modelo> findAll() {
-		List<Modelo> list = new ArrayList<>();
-		list.add(new Modelo(1, "662"));
-		list.add(new Modelo(2, "662XL"));
-		list.add(new Modelo(3, "664"));
-		list.add(new Modelo(4, "664XL"));
+	private ModeloDao dao = DaoFactory.createModeloDao();
 
-		return list;
+	public List<Modelo> findAll() {
+		return dao.findAll();
 	}
 }

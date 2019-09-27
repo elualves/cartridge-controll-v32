@@ -1,18 +1,16 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.DaoFactory;
+import model.dao.StatusDao;
 import model.entities.Status;
 
 public class StatusService {
 
-	public List<Status> findAll() {
-		List<Status> list = new ArrayList<>();
-		list.add(new Status(1, "Sem Condições"));
-		list.add(new Status(2, "Queimado"));
-		list.add(new Status(3, "Recarregado"));
+	private StatusDao dao = DaoFactory.createStatusDao();
 
-		return list;
+	public List<Status> findAll() {
+		return dao.findAll();
 	}
 }

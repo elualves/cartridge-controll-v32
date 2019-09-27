@@ -11,10 +11,10 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.CorDao;
-import model.entities.Cor;
+import model.dao.MarcaDao;
+import model.entities.Marca;
 
-public class MarcaDaoJDBC implements CorDao {
+public class MarcaDaoJDBC implements MarcaDao {
 
 	private Connection conn;
 	
@@ -23,18 +23,18 @@ public class MarcaDaoJDBC implements CorDao {
 	}
 	
 	@Override
-	public Cor findById(Integer id) {
+	public Marca findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM cor WHERE IDCOR = ?");
+				"SELECT * FROM MARCA WHERE IDMARCA = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Cor obj = new Cor();
-				obj.setId(rs.getInt("IDCOR"));
-				obj.setCor(rs.getString("NOME_DA_COR"));
+				Marca obj = new Marca();
+				obj.setId(rs.getInt("IDMARCA"));
+				obj.setMarca(rs.getString("NOME_DA_MARCA"));
 				return obj;
 			}
 			return null;
@@ -49,19 +49,19 @@ public class MarcaDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public List<Cor> findAll() {
+	public List<Marca> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM COR ORDER BY IDCOR");
+			st = conn.prepareStatement("SELECT * FROM MARCA ORDER BY IDMARCA");
 			rs = st.executeQuery();
 
-			List<Cor> list = new ArrayList<>();
+			List<Marca> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Cor obj = new Cor();
-				obj.setId(rs.getInt("IDCOR"));
-				obj.setCor(rs.getString("NOME_DA_COR"));
+				Marca obj = new Marca();
+				obj.setId(rs.getInt("IDMARCA"));
+				obj.setMarca(rs.getString("NOME_DA_MARCA"));
 				list.add(obj);
 			}
 			return list;
@@ -76,17 +76,17 @@ public class MarcaDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public void insert(Cor obj) {
+	public void insert(Marca obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO cor " +
+				"INSERT INTO MARCA " +
 				"(Name) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
-			st.setString(1, obj.getCor());
+			st.setString(1, obj.getMarca());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -110,15 +110,15 @@ public class MarcaDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public void update(Cor obj) {
+	public void update(Marca obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE cor " +
+				"UPDATE MARCA " +
 				"SET Name = ? " +
-				"WHERE Id = ?");
+				"WHERE IDMARCA = ?");
 
-			st.setString(1, obj.getCor());
+			st.setString(1, obj.getMarca());
 			st.setInt(2, obj.getId());
 
 			st.executeUpdate();
@@ -136,7 +136,7 @@ public class MarcaDaoJDBC implements CorDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM cor WHERE Id = ?");
+				"DELETE FROM MARCA WHERE IdMARCA = ?");
 
 			st.setInt(1, id);
 

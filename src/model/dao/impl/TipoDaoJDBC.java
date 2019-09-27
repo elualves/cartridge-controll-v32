@@ -11,10 +11,10 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.dao.CorDao;
-import model.entities.Cor;
+import model.dao.TipoDao;
+import model.entities.Tipo;
 
-public class TipoDaoJDBC implements CorDao {
+public class TipoDaoJDBC implements TipoDao {
 
 	private Connection conn;
 	
@@ -23,18 +23,18 @@ public class TipoDaoJDBC implements CorDao {
 	}
 	
 	@Override
-	public Cor findById(Integer id) {
+	public Tipo findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM cor WHERE IDCOR = ?");
+				"SELECT * FROM TIPO WHERE IDTIPO = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Cor obj = new Cor();
-				obj.setId(rs.getInt("IDCOR"));
-				obj.setCor(rs.getString("NOME_DA_COR"));
+				Tipo obj = new Tipo();
+				obj.setId(rs.getInt("IDTIPO"));
+				obj.setTipo(rs.getString("NOME_DO_TIPO"));
 				return obj;
 			}
 			return null;
@@ -49,19 +49,19 @@ public class TipoDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public List<Cor> findAll() {
+	public List<Tipo> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM COR ORDER BY IDCOR");
+			st = conn.prepareStatement("SELECT * FROM TIPO ORDER BY IDTIPO");
 			rs = st.executeQuery();
 
-			List<Cor> list = new ArrayList<>();
+			List<Tipo> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Cor obj = new Cor();
-				obj.setId(rs.getInt("IDCOR"));
-				obj.setCor(rs.getString("NOME_DA_COR"));
+				Tipo obj = new Tipo();
+				obj.setId(rs.getInt("IDTIPO"));
+				obj.setTipo(rs.getString("NOME_DO_TIPO"));
 				list.add(obj);
 			}
 			return list;
@@ -76,17 +76,17 @@ public class TipoDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public void insert(Cor obj) {
+	public void insert(Tipo obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"INSERT INTO cor " +
+				"INSERT INTO TIPO " +
 				"(Name) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
-			st.setString(1, obj.getCor());
+			st.setString(1, obj.getTipo());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -110,15 +110,15 @@ public class TipoDaoJDBC implements CorDao {
 	}
 
 	@Override
-	public void update(Cor obj) {
+	public void update(Tipo obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE cor " +
+				"UPDATE TIPO " +
 				"SET Name = ? " +
-				"WHERE Id = ?");
+				"WHERE IDTIPO = ?");
 
-			st.setString(1, obj.getCor());
+			st.setString(1, obj.getTipo());
 			st.setInt(2, obj.getId());
 
 			st.executeUpdate();
@@ -136,7 +136,7 @@ public class TipoDaoJDBC implements CorDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM cor WHERE Id = ?");
+				"DELETE FROM TIPO WHERE IDTIPO = ?");
 
 			st.setInt(1, id);
 
