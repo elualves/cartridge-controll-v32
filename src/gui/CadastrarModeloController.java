@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,7 +29,7 @@ import javafx.stage.Stage;
 import model.entities.Modelo;
 import model.services.ModeloService;
 
-public class CadastrarModeloController implements Initializable {
+public class CadastrarModeloController implements Initializable, DataChangeListener  {
 	
 	private ModeloService service;
 	
@@ -40,14 +43,18 @@ public class CadastrarModeloController implements Initializable {
 	private TableColumn<Modelo, String> tableColumnModelo;
 	
 	@FXML
+	private TableColumn<Modelo, Modelo> tableColumnEDIT;
+	
+	@FXML
 	private Button btNovaModelo;
 	
 	private ObservableList<Modelo> obsList;
 	
 	@FXML
 	public void onBtNovaModeloAction(ActionEvent event) {
+		Modelo obj = new Modelo();
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/ModeloForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/ModeloForm.fxml", parentStage);
 	}
 
 	public void setModeloService(ModeloService service) {
@@ -74,12 +81,19 @@ public class CadastrarModeloController implements Initializable {
 		List<Modelo> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewModelo.setItems(obsList);
+		initEditButtons();
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Modelo obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			ModeloFormController controller = loader.getController();
+			controller.setModelo(obj);
+			controller.updateFormData();
+			controller.subscribeDataChangeListener(this);
+			controller.setModeloService(new ModeloService());
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Cadastrar Modelo");
@@ -95,5 +109,27 @@ public class CadastrarModeloController implements Initializable {
 		}
 	}
 
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+	}
+	private void initEditButtons() {
+		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Modelo, Modelo>() {
+			private final Button button = new Button("edit");
+
+			@Override
+			protected void updateItem(Modelo obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/ModeloForm.fxml", Utils.currentStage(event)));
+			}
+		});
+	}
 }
 

@@ -81,7 +81,7 @@ public class StatusDaoJDBC implements StatusDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO STATUS " +
-				"(Name) " +
+				"(NOME_DO_STATUS) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
@@ -115,8 +115,8 @@ public class StatusDaoJDBC implements StatusDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE STATUS " +
-				"SET Name = ? " +
-				"WHERE Id = ?");
+				"SET NOME_DO_STATUS = ? " +
+				"WHERE IDSTATUS = ?");
 
 			st.setString(1, obj.getStatus());
 			st.setInt(2, obj.getId());

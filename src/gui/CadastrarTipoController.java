@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,7 +29,7 @@ import javafx.stage.Stage;
 import model.entities.Tipo;
 import model.services.TipoService;
 
-public class CadastrarTipoController implements Initializable {
+public class CadastrarTipoController implements Initializable, DataChangeListener  {
 	
 	private TipoService service;
 	
@@ -40,14 +43,18 @@ public class CadastrarTipoController implements Initializable {
 	private TableColumn<Tipo, String> tableColumnTipo;
 	
 	@FXML
+	private TableColumn<Tipo, Tipo> tableColumnEDIT;
+	
+	@FXML
 	private Button btNovaTipo;
 	
 	private ObservableList<Tipo> obsList;
 	
 	@FXML
 	public void onBtNovaTipoAction(ActionEvent event) {
+		Tipo obj = new Tipo();
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/TipoForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/TipoForm.fxml", parentStage);
 	}
 
 	public void setTipoService(TipoService service) {
@@ -74,12 +81,19 @@ public class CadastrarTipoController implements Initializable {
 		List<Tipo> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewTipo.setItems(obsList);
+		initEditButtons();
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Tipo obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			TipoFormController controller = loader.getController();
+			controller.setTipo(obj);
+			controller.updateFormData();
+			controller.subscribeDataChangeListener(this);
+			controller.setTipoService(new TipoService());
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Cadastrar Tipo");
@@ -95,6 +109,28 @@ public class CadastrarTipoController implements Initializable {
 		}
 	}
 
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+	}
+	private void initEditButtons() {
+		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Tipo, Tipo>() {
+			private final Button button = new Button("edit");
+
+			@Override
+			protected void updateItem(Tipo obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/TipoForm.fxml", Utils.currentStage(event)));
+			}
+		});
+	}
 }
 
 

@@ -13,5 +13,17 @@ public class TipoService {
 	public List<Tipo> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Tipo obj) {
+		if(obj.getId() == null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+	public void remove(Tipo obj) {
+		dao.deleteById(obj.getId());
+	}
 }
 

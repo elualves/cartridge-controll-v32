@@ -81,7 +81,7 @@ public class ModeloDaoJDBC implements ModeloDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO MODELO " +
-				"(Name) " +
+				"(NOME_DO_MODELO) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
@@ -115,8 +115,8 @@ public class ModeloDaoJDBC implements ModeloDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE MODELO " +
-				"SET Name = ? " +
-				"WHERE IdMODELO = ?");
+				"SET NOME_DO_MODELO = ? " +
+				"WHERE IDMODELO = ?");
 
 			st.setString(1, obj.getModelo());
 			st.setInt(2, obj.getId());
@@ -136,7 +136,7 @@ public class ModeloDaoJDBC implements ModeloDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM MODELO WHERE IdMODELO = ?");
+				"DELETE FROM MODELO WHERE IDMODELO = ?");
 
 			st.setInt(1, id);
 

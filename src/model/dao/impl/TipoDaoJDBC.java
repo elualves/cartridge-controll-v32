@@ -81,7 +81,7 @@ public class TipoDaoJDBC implements TipoDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO TIPO " +
-				"(Name) " +
+				"(NOME_DO_TIPO) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
@@ -115,7 +115,7 @@ public class TipoDaoJDBC implements TipoDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE TIPO " +
-				"SET Name = ? " +
+				"SET NOME_DO_TIPO = ? " +
 				"WHERE IDTIPO = ?");
 
 			st.setString(1, obj.getTipo());

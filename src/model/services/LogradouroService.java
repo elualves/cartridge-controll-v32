@@ -13,4 +13,16 @@ public class LogradouroService {
 	public List<Logradouro> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Logradouro obj) {
+		if(obj.getId() == null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+	public void remove(Logradouro obj) {
+		dao.deleteById(obj.getId());
+	}
 }

@@ -81,7 +81,7 @@ public class MarcaDaoJDBC implements MarcaDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO MARCA " +
-				"(Name) " +
+				"(NOME_DA_MARCA) " +
 				"VALUES " +
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
@@ -115,7 +115,7 @@ public class MarcaDaoJDBC implements MarcaDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE MARCA " +
-				"SET Name = ? " +
+				"SET NOME_DA_MARCA = ? " +
 				"WHERE IDMARCA = ?");
 
 			st.setString(1, obj.getMarca());
@@ -136,7 +136,7 @@ public class MarcaDaoJDBC implements MarcaDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM MARCA WHERE IdMARCA = ?");
+				"DELETE FROM MARCA WHERE IDMARCA = ?");
 
 			st.setInt(1, id);
 

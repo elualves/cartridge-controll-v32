@@ -13,4 +13,16 @@ public class ModeloService {
 	public List<Modelo> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Modelo obj) {
+		if(obj.getId() == null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+	public void remove(Modelo obj) {
+		dao.deleteById(obj.getId());
+	}
 }

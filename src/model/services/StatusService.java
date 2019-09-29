@@ -13,4 +13,16 @@ public class StatusService {
 	public List<Status> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Status obj) {
+		if(obj.getId() == null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+	public void remove(Status obj) {
+		dao.deleteById(obj.getId());
+	}
 }

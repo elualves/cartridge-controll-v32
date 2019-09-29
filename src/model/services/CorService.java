@@ -13,4 +13,17 @@ public class CorService {
 	public List<Cor> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Cor obj) {
+		if(obj.getId() == null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+	
+	public void remove(Cor obj) {
+		dao.deleteById(obj.getId());
+	}
 }

@@ -28,8 +28,8 @@
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="43.0" text="Id" />
           <TableColumn fx:id="tableColumnStatus" prefWidth="141.0" text="Status" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>
 </VBox>
-

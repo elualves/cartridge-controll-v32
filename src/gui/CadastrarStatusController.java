@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,7 +29,7 @@ import javafx.stage.Stage;
 import model.entities.Status;
 import model.services.StatusService;
 
-public class CadastrarStatusController implements Initializable {
+public class CadastrarStatusController implements Initializable, DataChangeListener  {
 
 	private StatusService service;
 
@@ -38,6 +41,9 @@ public class CadastrarStatusController implements Initializable {
 
 	@FXML
 	private TableColumn<Status, String> tableColumnStatus;
+	
+	@FXML
+	private TableColumn<Status, Status> tableColumnEDIT;
 
 	@FXML
 	private Button btNovaStatus;
@@ -46,8 +52,9 @@ public class CadastrarStatusController implements Initializable {
 
 	@FXML
 	public void onBtNovaStatusAction(ActionEvent event) {
+		Status obj = new Status();
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/StatusForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/StatusForm.fxml", parentStage);
 	}
 
 	public void setStatusService(StatusService service) {
@@ -74,12 +81,19 @@ public class CadastrarStatusController implements Initializable {
 		List<Status> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewStatus.setItems(obsList);
+		initEditButtons();
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Status obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			StatusFormController controller = loader.getController();
+			controller.setStatus(obj);
+			controller.updateFormData();
+			controller.subscribeDataChangeListener(this);
+			controller.setStatusService(new StatusService());
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Cadastrar Status");
@@ -95,4 +109,26 @@ public class CadastrarStatusController implements Initializable {
 		}
 	}
 
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+	}
+	private void initEditButtons() {
+		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Status, Status>() {
+			private final Button button = new Button("edit");
+
+			@Override
+			protected void updateItem(Status obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/StatusForm.fxml", Utils.currentStage(event)));
+			}
+		});
+	}
 }
