@@ -136,7 +136,7 @@ public class StatusDaoJDBC implements StatusDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM STATUS WHERE Id = ?");
+				"DELETE FROM STATUS WHERE IdSTATUS = ?");
 
 			st.setInt(1, id);
 

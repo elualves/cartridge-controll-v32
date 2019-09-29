@@ -136,7 +136,7 @@ public class LogradouroDaoJDBC implements LogradouroDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM LOGRADOURO WHERE IDCOR = ?");
+				"DELETE FROM LOGRADOURO WHERE IDLOGRADOURO = ?");
 
 			st.setInt(1, id);
 

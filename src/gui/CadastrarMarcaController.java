@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -19,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,7 +32,7 @@ import javafx.stage.Stage;
 import model.entities.Marca;
 import model.services.MarcaService;
 
-public class CadastrarMarcaController implements Initializable, DataChangeListener  {
+public class CadastrarMarcaController implements Initializable, DataChangeListener {
 
 	private MarcaService service;
 
@@ -41,9 +44,12 @@ public class CadastrarMarcaController implements Initializable, DataChangeListen
 
 	@FXML
 	private TableColumn<Marca, String> tableColumnMarca;
-	
+
 	@FXML
 	private TableColumn<Marca, Marca> tableColumnEDIT;
+
+	@FXML
+	private TableColumn<Marca, Marca> tableColumnREMOVE;
 
 	@FXML
 	private Button btNovaMarca;
@@ -82,6 +88,7 @@ public class CadastrarMarcaController implements Initializable, DataChangeListen
 		obsList = FXCollections.observableArrayList(list);
 		tableViewMarca.setItems(obsList);
 		initEditButtons();
+		initRemoveButtons();
 	}
 
 	private void createDialogForm(Marca obj, String absoluteName, Stage parentStage) {
@@ -110,12 +117,13 @@ public class CadastrarMarcaController implements Initializable, DataChangeListen
 
 	@Override
 	public void onDataChanged() {
-		updateTableView();	
+		updateTableView();
 	}
+
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnEDIT.setCellFactory(param -> new TableCell<Marca, Marca>() {
-			private final Button button = new Button("edit");
+			private final Button button = new Button("editar");
 
 			@Override
 			protected void updateItem(Marca obj, boolean empty) {
@@ -125,9 +133,43 @@ public class CadastrarMarcaController implements Initializable, DataChangeListen
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/MarcaForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/MarcaForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
+	
+	private void initRemoveButtons() {
+		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Marca, Marca>() {
+			private final Button button = new Button("remover");
+
+			@Override
+			protected void updateItem(Marca obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+
+	private void removeEntity(Marca obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("CONFIRMAÇÃO", "Deseja realmente remover este item?");
+
+		if (result.get() == ButtonType.OK) {
+			if (service == null) {
+				throw new IllegalStateException("Service was null");
+			}
+			try {
+				service.remove(obj);
+				updateTableView();
+			} catch (DbIntegrityException e) {
+				Alerts.showAlert("Erro ao remover", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
+	}
 }
+

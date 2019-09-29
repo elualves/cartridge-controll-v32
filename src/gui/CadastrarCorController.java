@@ -49,7 +49,7 @@ public class CadastrarCorController implements Initializable, DataChangeListener
 	private TableColumn<Cor, Cor> tableColumnEDIT;
 
 	@FXML
-	private TableColumn<Cor, Cor> tableColumnREMOVE;/* 1 */
+	private TableColumn<Cor, Cor> tableColumnREMOVE;
 
 	@FXML
 	private Button btNovaCor;
@@ -88,12 +88,8 @@ public class CadastrarCorController implements Initializable, DataChangeListener
 		obsList = FXCollections.observableArrayList(list);
 		tableViewCor.setItems(obsList);
 		initEditButtons();
-		/*4*/initRemoveButtons();
-		/*ONDE FIQUEI==>>
-		 * IMPLENTAR OS BOTÕES REMOVER EM:
-		 * Cadastrar/Logradouro/Marca/Modelo/Status/Tipo
-		 * */
-
+		initRemoveButtons();
+		
 	}
 
 	private void createDialogForm(Cor obj, String absoluteName, Stage parentStage) {
@@ -143,7 +139,6 @@ public class CadastrarCorController implements Initializable, DataChangeListener
 		});
 	}
 
-	/* 2 */
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnREMOVE.setCellFactory(param -> new TableCell<Cor, Cor>() {
@@ -162,9 +157,8 @@ public class CadastrarCorController implements Initializable, DataChangeListener
 		});
 	}
 
-	/* 3 */
 	private void removeEntity(Cor obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("CONFIRMAÇÃO", "Deseja realmente excluir?");
+		Optional<ButtonType> result = Alerts.showConfirmation("CONFIRMAÇÃO", "Deseja realmente remover este item?");
 
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {
