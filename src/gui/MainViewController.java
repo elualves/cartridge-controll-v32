@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.CartuchoService;
 import model.services.CorService;
 import model.services.LogradouroService;
 import model.services.MarcaService;
@@ -114,11 +115,13 @@ public class MainViewController implements Initializable {
 	@FXML
 	private Button btnLimpar;
 
-	/*---------------------------------------------------------------------------*/
 
 	@FXML
 	public void onMenuItemCadastrarNovaRecargaAction() {
-		System.out.println("menu Item Cadastrar Nova Recarga Action");
+		loadView("/gui/CadastrarCartucho.fxml", (CadastrarCartuchoController controller) -> {
+			controller.setCartuchoService(new CartuchoService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML

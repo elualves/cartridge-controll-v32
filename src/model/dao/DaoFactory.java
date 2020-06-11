@@ -1,6 +1,7 @@
 package model.dao;
 
 import db.DB;
+import model.dao.impl.CartuchoDaoJDBC;
 import model.dao.impl.CorDaoJDBC;
 import model.dao.impl.LogradouroDaoJDBC;
 import model.dao.impl.MarcaDaoJDBC;
@@ -34,4 +35,8 @@ public class DaoFactory {
 	  public static StatusDao createStatusDao() {
 		return new StatusDaoJDBC(DB.getConnection());
 	}
+	  
+	  public static CartuchoDao createCartuchoDao() {
+			return new CartuchoDaoJDBC(DB.getConnection());
+		}
 }
